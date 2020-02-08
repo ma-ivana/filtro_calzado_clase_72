@@ -29,62 +29,37 @@ const calzado = [
 const cards = document.querySelector(".sectorTarjetas");
 cards.innerHTML = '';
 
-  tarjetasDinamicas = '';
+tarjetasDinamicas = '';
 
 
 
-const todoCalzadoImpreso = calzado.forEach (zapato => {
+const todoCalzadoImpreso = calzado.forEach(zapato => {
 
-    tarjetasDinamicas += `
+  tarjetasDinamicas += `
      <div class="card">
-       <div class="imagen"> <img src="${zapato.img}" class="fill"> </div>
+       <div class="imagen"> <img src="${zapato.img}"> </div>
        <div class="title"> 
        <h4>${zapato.nombre}</h4>
-       
        </div>
      </div>`;
 });
 
-   cards.innerHTML = tarjetasDinamicas;
+cards.innerHTML = tarjetasDinamicas;
 
 
 let elegido = document.querySelector("input[type='text']");
 
+//------------------------------------------------------función para imprimir calzado seleccionado
 
-const form = document.querySelector("form");
-form.onsubmit = e => {
-e.preventDefault();
-
-// window.onkeypress = e => {
-//   if (e.keyCode === 13) {
-//     e.preventDefault();
-//     console.log("key pressed");
-//   } else {
-//     const form = document.querySelector("form");
-//     form.onsubmit = e => {
-//       e.preventDefault();
-//       console.log("filter pressed");
-//     }
-//   };
-
-
-
-
+const imprimirCalzadoSeleccionado = (calzado, elegido) => {
   const calzadoSeleccionado = calzado.filter(zapato => (zapato.tipo === elegido.value || zapato.color === elegido.value));
-  console.log("dentro de select");
-  console.log(calzadoSeleccionado);
+  
+  cards.innerHTML = '';
+
+  tarjetasDinamicas = '';
 
 
-
-  // const cards = document.querySelector(".sectorTarjetas");
-
-  // cards.innerHTML = '';
-
-  // tarjetasDinamicas = '';
-
-
-
-const calzadoImpreso = calzadoSeleccionado.forEach (zapato => {
+  const calzadoImpreso = calzadoSeleccionado.forEach(zapato => {
 
     tarjetasDinamicas += `
      <div class="card">
@@ -95,10 +70,31 @@ const calzadoImpreso = calzadoSeleccionado.forEach (zapato => {
        </div>
      
     </div>`;
-});
+  });
 
-   cards.innerHTML = tarjetasDinamicas;
+  cards.innerHTML = tarjetasDinamicas;
+
+
+};
+
+//---------------------------------------------------------con botón Filtrar
+const form = document.querySelector("form");
+form.onsubmit = e => {
+  e.preventDefault();
+
+imprimirCalzadoSeleccionado(calzado, elegido);
 
 }
 
+
+
+//-----------------------------------------------------------------con tecla Enter
+
+window.onkeypress = e => {
+  if (e.keyCode === 13) {
+    e.preventDefault()
+  };
+
+imprimirCalzadoSeleccionado(calzado, elegido);
+};
 
