@@ -93,7 +93,7 @@ const preguntaSiExiste = (calzado, elegido) => {
 
   
  
-  if (arrayExiste >= calzado.length) {
+  if (arrayExiste >= calzado.length && elegido.value) {
     
       modal.classList.add("noExiste");
         modal.innerHTML = `<p>No tenemos productos con el color o el tipo que elegiste.
@@ -104,11 +104,13 @@ const preguntaSiExiste = (calzado, elegido) => {
       const cerrarModal = document.querySelector(".cerrar");
       cerrarModal.onclick = e => {
         modal.classList.remove("noExiste");
+        modal.classList.remove("modal");
         modal.innerHTML ="";
       };
 
         modal.onmouseleave = e => {
         modal.classList.remove("noExiste");
+        modal.classList.remove("modal");
         modal.innerHTML ="";
       };
 
