@@ -20,7 +20,7 @@ input {
 }
 
 
-button {
+.botonFiltrar {
   border-style: none;
   background-color: rgb(250, 173, 101);
   color: rgb(117, 16, 16);
@@ -85,3 +85,28 @@ article {
   
 }
 
+.modal {
+  position:fixed;
+  top: 30%;
+  left: 35%;
+  width: 500px;
+  height: 300px;
+  background-color: rgb(117, 16, 16);
+  color: white;
+  padding: 40px;
+  border-style: solid 2px rgb(44, 34, 34);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+}
+
+.cerrar {
+  background-color: transparent;
+  border-style: none;
+  margin-left: 450px;
+  margin-top: 200px;
+}
+
+i {
+  color: white;
+  width: 100%;
+}

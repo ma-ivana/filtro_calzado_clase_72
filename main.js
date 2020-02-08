@@ -49,9 +49,36 @@ cards.innerHTML = tarjetasDinamicas;
 
 let elegido = document.querySelector("input[type='text']");
 
+const modal = document.querySelector(".modal");
+modal.classList.remove("modal");
+
+
+//------------------------------------------------------función para abrir/cerrar modal
+const abrirYCerrarModal = elegido => {
+if (!elegido.value) {
+      modal.classList.add("modal");
+      modal.innerHTML = `<p>No seleccionaste ningún tipo o color de calzado<br>para filtrar.</p>
+      <button class="cerrar"><i class="fa fa-times fa-2x"></i></button>`;
+    
+    
+    const cerrarModal = document.querySelector(".cerrar");
+    cerrarModal.onclick = e => {
+      modal.classList.remove("modal");
+      modal.innerHTML ="";
+    };
+
+      modal.onmouseleave = e => {
+      modal.classList.remove("modal");
+      modal.innerHTML ="";
+    };
+  };
+};
 //------------------------------------------------------función para imprimir calzado seleccionado
 
 const imprimirCalzadoSeleccionado = (calzado, elegido) => {
+  
+  
+
   const calzadoSeleccionado = calzado.filter(zapato => (zapato.tipo === elegido.value || zapato.color === elegido.value));
   
   cards.innerHTML = '';
@@ -74,7 +101,6 @@ const imprimirCalzadoSeleccionado = (calzado, elegido) => {
 
   cards.innerHTML = tarjetasDinamicas;
 
-
 };
 
 //---------------------------------------------------------con botón Filtrar
@@ -82,6 +108,7 @@ const form = document.querySelector("form");
 form.onsubmit = e => {
   e.preventDefault();
 
+abrirYCerrarModal(elegido);
 imprimirCalzadoSeleccionado(calzado, elegido);
 
 }
@@ -92,9 +119,11 @@ imprimirCalzadoSeleccionado(calzado, elegido);
 
 window.onkeypress = e => {
   if (e.keyCode === 13) {
-    e.preventDefault()
+    e.preventDefault();
+    abrirYCerrarModal(elegido);
   };
 
+  
 imprimirCalzadoSeleccionado(calzado, elegido);
 };
 
