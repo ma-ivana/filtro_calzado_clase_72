@@ -26,21 +26,46 @@ const calzado = [
   },
 ];
 
+const cards = document.querySelector(".sectorTarjetas");
+cards.innerHTML = '';
+
+  tarjetasDinamicas = '';
+
+
+
+const todoCalzadoImpreso = calzado.forEach (zapato => {
+
+    tarjetasDinamicas += `
+     <div class="card">
+       <div class="imagen"> <img src="${zapato.img}" class="fill"> </div>
+       <div class="title"> 
+       <h4>${zapato.nombre}</h4>
+       
+       </div>
+     </div>`;
+});
+
+   cards.innerHTML = tarjetasDinamicas;
+
 
 let elegido = document.querySelector("input[type='text']");
 
 
-window.onkeypress = e => {
-  if (e.keyCode === 13) {
-    e.preventDefault();
-    console.log("key pressed");
-  } else {
-    const form = document.querySelector("form");
-    form.onsubmit = e => {
-      e.preventDefault();
-      console.log("filter pressed");
-    }
-  };
+const form = document.querySelector("form");
+form.onsubmit = e => {
+e.preventDefault();
+
+// window.onkeypress = e => {
+//   if (e.keyCode === 13) {
+//     e.preventDefault();
+//     console.log("key pressed");
+//   } else {
+//     const form = document.querySelector("form");
+//     form.onsubmit = e => {
+//       e.preventDefault();
+//       console.log("filter pressed");
+//     }
+//   };
 
 
 
@@ -51,24 +76,25 @@ window.onkeypress = e => {
 
 
 
-  const cards = document.querySelector(".sectorTarjetas");
+  // const cards = document.querySelector(".sectorTarjetas");
 
-  cards.innerHTML = '';
+  // cards.innerHTML = '';
 
-  tarjetasDinamicas = '';
+  // tarjetasDinamicas = '';
 
 
 
 const calzadoImpreso = calzadoSeleccionado.forEach (zapato => {
 
     tarjetasDinamicas += `
-     <article class="card">
+     <div class="card">
        <div class="imagen"> <img src="${zapato.img}"> </div>
        <div class="title"> 
        <h4>${zapato.nombre}</h4>
        
        </div>
-     </article>`;
+     
+    </div>`;
 });
 
    cards.innerHTML = tarjetasDinamicas;
