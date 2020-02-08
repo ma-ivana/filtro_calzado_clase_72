@@ -26,6 +26,7 @@ const calzado = [
   },
 ];
 
+
 const cards = document.querySelector(".sectorTarjetas");
 cards.innerHTML = '';
 
@@ -49,15 +50,19 @@ cards.innerHTML = tarjetasDinamicas;
 
 let elegido = document.querySelector("input[type='text']");
 
+
 const modal = document.querySelector(".modal");
 modal.classList.remove("modal");
+modal.classList.remove("noExiste");
+
+
 
 
 //------------------------------------------------------función para abrir/cerrar modal
 const abrirYCerrarModal = elegido => {
 if (!elegido.value) {
       modal.classList.add("modal");
-      modal.innerHTML = `<p>No seleccionaste ningún tipo o color de calzado<br>para filtrar.</p>
+      modal.innerHTML = `<p>No seleccionaste ningún tipo o color de calzado para filtrar.</p>
       <button class="cerrar"><i class="fa fa-times fa-2x"></i></button>`;
     
     
@@ -73,12 +78,50 @@ if (!elegido.value) {
     };
   };
 };
+
+//------------------------------------------------------función para saber si existe el producto
+
+const preguntaSiExiste = (calzado, elegido) => {
+        const arrayExiste = calzado.reduce( (acc, curr) => {
+        if ((curr.tipo !== elegido.value && curr.color !== elegido.value)) {
+        acc += 1;
+      };
+      
+      return acc;
+      
+    }, 0);
+
+  
+ 
+  if (arrayExiste >= calzado.length) {
+    
+      modal.classList.add("noExiste");
+        modal.innerHTML = `<p>No tenemos productos con el color o el tipo que elegiste.
+        Seleccioná otro.</p>
+        <button class="cerrar"><i class="fa fa-times fa-2x"></i></button>`;
+      
+      
+      const cerrarModal = document.querySelector(".cerrar");
+      cerrarModal.onclick = e => {
+        modal.classList.remove("noExiste");
+        modal.innerHTML ="";
+      };
+
+        modal.onmouseleave = e => {
+        modal.classList.remove("noExiste");
+        modal.innerHTML ="";
+      };
+
+    };
+
+
+};
+
+
 //------------------------------------------------------función para imprimir calzado seleccionado
 
 const imprimirCalzadoSeleccionado = (calzado, elegido) => {
   
-  
-
   const calzadoSeleccionado = calzado.filter(zapato => (zapato.tipo === elegido.value || zapato.color === elegido.value));
   
   cards.innerHTML = '';
@@ -105,13 +148,16 @@ const imprimirCalzadoSeleccionado = (calzado, elegido) => {
 
 //---------------------------------------------------------con botón Filtrar
 const form = document.querySelector("form");
-form.onsubmit = e => {
-  e.preventDefault();
+  form.onsubmit = e => {
+    e.preventDefault();
 
-abrirYCerrarModal(elegido);
-imprimirCalzadoSeleccionado(calzado, elegido);
+  abrirYCerrarModal(elegido);
 
-}
+  imprimirCalzadoSeleccionado(calzado, elegido);
+  preguntaSiExiste(calzado, elegido);
+ 
+  
+};
 
 
 
@@ -121,9 +167,12 @@ window.onkeypress = e => {
   if (e.keyCode === 13) {
     e.preventDefault();
     abrirYCerrarModal(elegido);
+    preguntaSiExiste(calzado, elegido);
+    
+    
   };
 
-  
+ 
 imprimirCalzadoSeleccionado(calzado, elegido);
 };
 
